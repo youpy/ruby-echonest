@@ -1,0 +1,29 @@
+
+= echonest
+
+
+== Description
+
+
+== Installation
+
+=== Archive Installation
+
+	rake install
+
+=== Gem Installation
+
+	gem install youpy-echonest
+
+
+== Features/Problems
+
+
+== Synopsis
+
+
+== Copyright
+
+Author::    youpy <youpy@>
+Copyright:: Copyright (c) 2009 youpy
+License::   MIT
