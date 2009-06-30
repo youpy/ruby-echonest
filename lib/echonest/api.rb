@@ -1,4 +1,3 @@
-require 'ostruct'
 require 'digest/md5'
 
 module Echonest
