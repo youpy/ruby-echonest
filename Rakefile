@@ -29,7 +29,7 @@ RDOC_OPTS = [
   "--charset", "utf-8",
   "--opname", "index.html",
   "--line-numbers",
-  "--main", "README",
+  "--main", "README.rdoc",
   "--inline-source",
 ]
 
@@ -47,7 +47,7 @@ spec = Gem::Specification.new do |s|
   s.version           = VERS
   s.platform          = Gem::Platform::RUBY
   s.has_rdoc          = true
-  s.extra_rdoc_files  = ["README", "ChangeLog"]
+  s.extra_rdoc_files  = ["README.rdoc", "ChangeLog"]
   s.rdoc_options     += RDOC_OPTS + ['--exclude', '^(examples|extras)/']
   s.summary           = DESCRIPTION
   s.description       = DESCRIPTION
