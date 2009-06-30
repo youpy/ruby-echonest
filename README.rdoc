@@ -25,6 +25,10 @@ An Ruby interface for Echo Nest Developer API
   echonest = Echonest('YOUR_API_KEY')
   echonest.get_beats(filename)
 
+== Thanks
+
+koyachi for original idea <http://gist.github.com/87086>
+
 == Copyright
 
 Author::    youpy <youpy@buycheapviagraonlinenow.com>
