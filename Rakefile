@@ -63,7 +63,7 @@ spec = Gem::Specification.new do |s|
   #s.add_dependency('activesupport', '>=1.3.1')
   #s.required_ruby_version = '>= 1.8.2'
 
-  s.files = %w(README ChangeLog Rakefile) +
+  s.files = %w(README.rdoc ChangeLog Rakefile) +
     Dir.glob("{bin,doc,spec,test,lib,templates,generator,extras,website,script}/**/*") + 
     Dir.glob("ext/**/*.{h,c,rb}") +
     Dir.glob("examples/**/*.rb") +
