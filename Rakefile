@@ -13,11 +13,11 @@ include FileUtils
 $LOAD_PATH.unshift "lib"
 require "echonest"
 
-NAME              = "echonest"
+NAME              = "ruby-echonest"
 AUTHOR            = "youpy"
 EMAIL             = "youpy@buycheapviagraonlinenow.com"
 DESCRIPTION       = "An Ruby interface for Echo Nest Developer API"
-RUBYFORGE_PROJECT = "rechonest"
+RUBYFORGE_PROJECT = "ruby-echonest"
 HOMEPATH          = "http://#{RUBYFORGE_PROJECT}.rubyforge.org"
 BIN_FILES         = %w(  )
 VERS              = Echonest::VERSION
