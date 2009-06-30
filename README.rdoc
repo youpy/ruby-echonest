@@ -4,7 +4,6 @@ An Ruby interface for Echo Nest Developer API
 
 == Description
 
-
 == Installation
 
 === Archive Installation
@@ -13,13 +12,17 @@ An Ruby interface for Echo Nest Developer API
 
 === Gem Installation
 
-	gem install youpy-echonest
-
+	gem sources -a http://gems.github.com/  
+	gem install youpy-ruby-echonest
 
 == Features/Problems
 
+Supports only API for Track http://developer.echonest.com/pages/overview
 
 == Synopsis
+
+  require 'rubygems'
+  require 'echonest'
 
   filename = 'foo.mp3'
   echonest = Echonest('YOUR_API_KEY')
@@ -27,7 +30,7 @@ An Ruby interface for Echo Nest Developer API
 
 == Thanks
 
-koyachi for original idea <http://gist.github.com/87086>
+{koyachi}[http://github.com/koyachi] for original idea http://gist.github.com/87086
 
 == Copyright
 
