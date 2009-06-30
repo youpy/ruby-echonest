@@ -14,14 +14,14 @@ module Echonest
         url.query = query(args)
       end
 
-      req = Net::HTTP::Get.new(url.request_uri)
+      req = make_request(url, 'get')
 
       request(req, url)
     end
 
     def post(resource, args = nil)
       url = url(resource.to_s)
-      req = Net::HTTP::Post.new(url.request_uri)
+      req = make_request(url, 'post')
 
       if args
         data = post_data(args)
@@ -73,6 +73,17 @@ module Echonest
 
     def query(params)
       params.map { |k,v| "%s=%s" % [CGI.escape(k.to_s), CGI.escape(v.to_s)] }.join("&")
+    end
+
+    def make_request(uri, method)
+      req = (method == 'post' ? Net::HTTP::Post : Net::HTTP::Get).new(uri.request_uri)
+      req['User-Agent'] = user_agent
+
+      req
+    end
+
+    def user_agent
+      '%s/%s' % ['ruby-echonest', VERSION]
     end
   end
 end
