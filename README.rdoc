@@ -1,6 +1,6 @@
-
 = echonest
 
+An Ruby interface for Echo Nest Developer API
 
 == Description
 
@@ -21,9 +21,12 @@
 
 == Synopsis
 
+  filename = 'foo.mp3'
+  echonest = Echonest('YOUR_API_KEY')
+  echonest.get_beats(filename)
 
 == Copyright
 
-Author::    youpy <youpy@>
+Author::    youpy <youpy@buycheapviagraonlinenow.com>
 Copyright:: Copyright (c) 2009 youpy
 License::   MIT
