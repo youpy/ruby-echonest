@@ -1,6 +1,6 @@
 = echonest
 
-An Ruby interface for Echo Nest Developer API
+A Ruby interface for Echo Nest Developer API
 
 == Description
 
