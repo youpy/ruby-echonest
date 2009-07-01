@@ -17,7 +17,7 @@ A Ruby interface for Echo Nest Developer API
 
 == Features/Problems
 
-Supports only API for Track http://developer.echonest.com/pages/overview
+Only supports the API for Track http://developer.echonest.com/pages/overview
 
 == Synopsis
 
