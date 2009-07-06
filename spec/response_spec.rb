@@ -46,7 +46,7 @@ EOM
     @success.status.code.should eql(0)
     @success.status.message.should eql('Success')
     @success.success?.should be_true
-    @success.xml.elements['response/artist/name'][0].to_s.should eql('Radiohead')
+    @success.xml.find('/response/artist/name').first.content.should eql('Radiohead')
 
     @failure.status.code.should eql(1)
     @failure.status.message.should eql('Invalid API key')

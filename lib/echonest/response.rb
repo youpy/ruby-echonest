@@ -1,11 +1,11 @@
-require "rexml/document"
+require "xml"
 
 module Echonest
   class Response
     attr_reader :xml
 
     def initialize(body)
-      @xml = REXML::Document.new(body)
+      @xml = XML::Document.string(body)
     end
 
     def status
@@ -32,8 +32,8 @@ module Echonest
       attr_reader :code, :message
 
       def initialize(xml)
-        @code = xml.elements['response/status/code'][0].to_s.to_i
-        @message = xml.elements['response/status/message'][0].to_s
+        @code = xml.find('/response/status/code').first.content.to_s.to_i
+        @message = xml.find('/response/status/message').first.content.to_s
       end
     end
 
@@ -41,8 +41,8 @@ module Echonest
       def initialize(xml)
         @parameters = {}
 
-        xml.elements.each('response/query/parameter') do |parameter|
-          @parameters[parameter.attributes['name'].to_sym] = parameter.text
+        xml.find('/response/query/parameter').each do |parameter|
+          @parameters[parameter['name'].to_sym] = parameter.content
         end
       end
 

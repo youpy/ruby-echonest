@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["youpy"]
-  s.date = %q{2009-06-30}
+  s.date = %q{2009-07-06}
   s.description = %q{An Ruby interface for Echo Nest Developer API}
   s.email = %q{youpy@buycheapviagraonlinenow.com}
   s.extra_rdoc_files = ["README.rdoc", "ChangeLog"]
@@ -24,8 +24,11 @@ Gem::Specification.new do |s|
     s.specification_version = 2
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<libxml-ruby>, [">= 0"])
     else
+      s.add_dependency(%q<libxml-ruby>, [">= 0"])
     end
   else
+    s.add_dependency(%q<libxml-ruby>, [">= 0"])
   end
 end
