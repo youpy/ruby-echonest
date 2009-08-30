@@ -160,12 +160,11 @@ module Echonest
 
         block.call(response)
       rescue Echonest::Api::Error => e
-        if e.message =~ /Analysis not ready/
+        case e.message
+        when /Analysis not ready/
           sleep 20 # wait for serverside analysis
           get_trackinfo(method, filename, &block)
-        end
-      rescue Error => e
-        if e.message == 'Invalid parameter: unknown MD5 file hash'
+        when 'Invalid parameter: unknown MD5 file hash'
           upload(filename)
           sleep 60 # wait for serverside analysis
           get_trackinfo(method, filename, &block)
