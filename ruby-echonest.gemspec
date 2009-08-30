@@ -1,12 +1,13 @@
+(in /Users/youpy/work/git-projects/ruby-echonest)
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
   s.name = %q{ruby-echonest}
-  s.version = "0.0.3"
+  s.version = "0.0.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["youpy"]
-  s.date = %q{2009-07-06}
+  s.date = %q{2009-08-31}
   s.description = %q{An Ruby interface for Echo Nest Developer API}
   s.email = %q{youpy@buycheapviagraonlinenow.com}
   s.extra_rdoc_files = ["README.rdoc", "ChangeLog"]
