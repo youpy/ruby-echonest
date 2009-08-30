@@ -1,6 +1,3 @@
-(in /Users/youpy/work/git-projects/ruby-echonest)
-# -*- encoding: utf-8 -*-
-
 Gem::Specification.new do |s|
   s.name = %q{ruby-echonest}
   s.version = "0.0.4"
