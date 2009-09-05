@@ -1,6 +1,5 @@
 require 'echonest/version'
 require 'echonest/api'
-require 'echonest/connection'
 require 'echonest/response'
 require 'echonest/element/value_with_confidence'
 require 'echonest/element/bar'

@@ -1,17 +1,19 @@
 require 'digest/md5'
+require 'httpclient'
 
 module Echonest
   class Api
     VERSION = '3'
-    URL = 'http://developer.echonest.com/api/'
+    BASE_URL = 'http://developer.echonest.com/api/'
+    USER_AGENT = '%s/%s' % ['ruby-echonest', ::Echonest::VERSION]
 
     class Error < StandardError; end
 
-    attr_reader :connection
+    attr_reader :user_agent
 
     def initialize(api_key)
       @api_key = api_key
-      @connection = Connection.new(URL)
+      @user_agent = HTTPClient.new(:agent_name => USER_AGENT)
     end
 
     def get_bars(filename)
@@ -175,16 +177,14 @@ module Echonest
     end
 
     def upload(filename)
-      content = open(filename).read
-
-      request(:upload, :file => content)
+      open(filename) do |f|
+        request(:upload, :file => f)
+      end
     end
 
     def request(name, params)
-      response_body = @connection.__send__(
-        name == :upload ? :post : :get,
-        name,
-        build_params(params))
+      method = (name == :upload ? 'post' : 'get')
+      response_body = @user_agent.__send__(method + '_content', URI.join(BASE_URL, name.to_s), build_params(params))
       response = Response.new(response_body)
 
       unless response.success?
@@ -193,5 +193,11 @@ module Echonest
 
       response
     end
+  end
+end
+
+class HTTPClient
+  def agent_name
+    @session_manager.agent_name
   end
 end

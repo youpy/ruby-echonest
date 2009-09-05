@@ -209,7 +209,11 @@ EOM
     time_signature.value.should eql(4)
   end
 
+  it "should make http request with agent name" do
+    @api.user_agent.agent_name.should eql('ruby-echonest/' + Echonest::VERSION)
+  end
+
   def make_connection_stub(xml)
-    @api.connection.stub!(:request).and_return(xml)
+    @api.user_agent.stub!(:get_content).and_return(xml)
   end
 end
