@@ -149,7 +149,7 @@ module Echonest
 
     def get_analysys(method, filename)
       get_trackinfo(method, filename) do |response|
-        yield response.xml.find('/response/analysis').first
+        yield response.xml.find_first('/response/analysis')
       end
     end
 
