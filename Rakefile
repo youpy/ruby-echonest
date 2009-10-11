@@ -18,7 +18,7 @@ AUTHOR            = "youpy"
 EMAIL             = "youpy@buycheapviagraonlinenow.com"
 DESCRIPTION       = "An Ruby interface for Echo Nest Developer API"
 RUBYFORGE_PROJECT = "ruby-echonest"
-HOMEPATH          = "http://#{RUBYFORGE_PROJECT}.rubyforge.org"
+HOMEPATH          = "http://github.com/youpy/ruby-echonest"
 BIN_FILES         = %w(  )
 VERS              = Echonest::VERSION
 
