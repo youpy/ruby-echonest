@@ -11,7 +11,7 @@ describe Echonest::Api do
   end
 
   it "should have version" do
-    Echonest::Api::VERSION.should eql('3')
+    Echonest::Api::VERSION.should eql('4.2 Beta')
   end
 
   it "should build parameters" do

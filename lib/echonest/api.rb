@@ -3,7 +3,7 @@ require 'httpclient'
 
 module Echonest
   class Api
-    VERSION = '3'
+    VERSION = '4.2 Beta'
     BASE_URL = 'http://developer.echonest.com/api/'
     USER_AGENT = '%s/%s' % ['ruby-echonest', ::Echonest::VERSION]
 
