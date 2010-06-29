@@ -11,9 +11,10 @@ module Echonest
 
     attr_reader :user_agent
 
-    def initialize(api_key)
+    def initialize(api_key, format='xml')
       @api_key = api_key
       @user_agent = HTTPClient.new(:agent_name => USER_AGENT)
+      @format = format
     end
 
     def get_bars(filename)
@@ -143,6 +144,7 @@ module Echonest
 
     def build_params(params)
       params = params.
+        merge(:format => @format).
         merge(:api_key => @api_key)
     end
 
