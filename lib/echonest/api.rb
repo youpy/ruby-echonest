@@ -143,7 +143,6 @@ module Echonest
 
     def build_params(params)
       params = params.
-        merge(:version => VERSION).
         merge(:api_key => @api_key)
     end
 

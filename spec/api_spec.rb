@@ -16,8 +16,7 @@ describe Echonest::Api do
 
   it "should build parameters" do
     params = @api.build_params(:id => 'music://id.echonest.com/~/AR/ARH6W4X1187B99274F')
-    params.keys.size.should eql(3)
-    params[:version].should eql('3')
+    params.keys.size.should eql(2)
     params[:api_key].should eql('5ZAOMB3BUR8QUN4PE')
     params[:id].should eql('music://id.echonest.com/~/AR/ARH6W4X1187B99274F')
   end
