@@ -126,7 +126,7 @@ COMMENTOUT
       get_analysys(:key, filename) do |analysis|
 # for xml
 #        ValueWithConfidence.new(analysis.first.content.to_i, analysis.first['confidence'].to_f)
-        analysis['track']['key']
+        ValueWithConfidence.new(analysis['track']['key'], analysis['track']['key_confidence'])
       end
     end
 
