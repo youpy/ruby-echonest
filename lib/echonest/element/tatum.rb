@@ -1,5 +1,2 @@
-class Tatum < ValueWithConfidence
-  def start
-    value
-  end
+class Tatum < Section
 end

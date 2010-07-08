@@ -1,5 +1,2 @@
-class Bar < ValueWithConfidence
-  def start
-    value
-  end
+class Bar < Section
 end

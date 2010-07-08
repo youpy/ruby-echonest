@@ -1,23 +1,24 @@
-require "xml"
+require 'json'
+require 'hashie'
 
 module Echonest
   class Response
-    attr_reader :xml
+    attr_reader :json
 
     def initialize(body)
-      @xml = XML::Document.string(body)
+      @json = Hashie::Mash.new(JSON.parse(body))
     end
 
     def status
-      @status ||= Status.new(@xml)
+      @status ||= Status.new(body)
     end
 
     def success?
       status.code == Status::SUCCESS
     end
 
-    def query
-      @query ||= Query.new(@xml)
+    def body
+      json.response
     end
 
     class Status
@@ -31,23 +32,9 @@ module Echonest
 
       attr_reader :code, :message
 
-      def initialize(xml)
-        @code = xml.find('/response/status/code').first.content.to_s.to_i
-        @message = xml.find('/response/status/message').first.content.to_s
-      end
-    end
-
-    class Query
-      def initialize(xml)
-        @parameters = {}
-
-        xml.find('/response/query/parameter').each do |parameter|
-          @parameters[parameter['name'].to_sym] = parameter.content
-        end
-      end
-
-      def [](parameter_name)
-        @parameters[parameter_name]
+      def initialize(response_body)
+        @code = response_body.status.code
+        @message = response_body.status.message
       end
     end
   end

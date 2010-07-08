@@ -1,5 +1,2 @@
-class Beat < ValueWithConfidence
-  def start
-    value
-  end
+class Beat < Section
 end

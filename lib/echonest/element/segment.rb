@@ -1,8 +1,8 @@
 class Segment < Section
   attr_reader :loudness, :max_loudness, :pitches, :timbre
 
-  def initialize(start, duration, loudness, max_loudness, pitches, timbre)
-    super(start, duration)
+  def initialize(start, duration, confidence, loudness, max_loudness, pitches, timbre)
+    super(start, duration, confidence)
 
     @loudness = loudness
     @max_loudness = max_loudness
