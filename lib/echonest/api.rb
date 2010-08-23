@@ -6,7 +6,7 @@ require 'json'
 module Echonest
   class Api
     VERSION = '4.2'
-    BASE_URL = 'http://beta.developer.echonest.com/api/v4/'
+    BASE_URL = 'http://developer.echonest.com/api/v4/'
     USER_AGENT = '%s/%s' % ['ruby-echonest', ::Echonest::VERSION]
 
     class Error < StandardError; end
