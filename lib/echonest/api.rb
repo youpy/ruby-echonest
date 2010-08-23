@@ -42,8 +42,8 @@ module Echonest
       end
 
       response
-    rescue HTTPClient::BadResponseError
-      raise Error.new('API method "%s" is unknown' % name)
+    rescue HTTPClient::BadResponseError => e
+      raise Error.new('%s: %s' % [name, e.message])
     end
   end
 end

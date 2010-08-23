@@ -40,11 +40,11 @@ describe Echonest::Api do
   end
 
   it "should raise error when unknown api method was called" do
-    @api.user_agent.stub!('get_content').and_raise(HTTPClient::BadResponseError.new(''))
+    @api.user_agent.stub!('get_content').and_raise(HTTPClient::BadResponseError.new('error message'))
 
     lambda {
       @api.request('track/xxxx', :get, :id => 'TRXXHTJ1294CD8F3B3')
-    }.should raise_error(Echonest::Api::Error, 'API method "track/xxxx" is unknown')
+    }.should raise_error(Echonest::Api::Error, 'track/xxxx: error message')
   end
 
   it "should make http request with agent name" do
