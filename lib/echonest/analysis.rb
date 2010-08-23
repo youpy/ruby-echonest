@@ -1,9 +1,14 @@
 require 'json'
+require 'open-uri'
 
 module Echonest
   class Analysis
     def initialize(json)
       @body = JSON.parse(json)
+    end
+
+    def self.new_from_url(url)
+      new(open(url).read)
     end
 
     def tempo

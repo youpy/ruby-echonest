@@ -22,6 +22,34 @@ describe Echonest::Api do
     params[:format].should eql('json')
   end
 
+  it "should pass arguments to user agent" do
+    @api.user_agent.should_receive(:get_content).
+      with(
+      URI('http://developer.echonest.com/api/v4/xxx/yyy'),
+      {
+        :foo => 'bar',
+        :api_key => '8TPE3VC60ODJTNTFE',
+        :format => 'json'
+      }).and_return(open(fixture('profile.json')).read)
+
+    @api.request('xxx/yyy', :get, :foo => 'bar')
+  end
+
+  it "should pass arguments including a file to user agent" do
+    file = open(fixture('sample.mp3'))
+    file.should_receive(:read).and_return('content')
+
+    @api.user_agent.should_receive(:post_content).
+      with(
+      URI('http://developer.echonest.com/api/v4/xxx/zzz?api_key=8TPE3VC60ODJTNTFE&bar=baz&format=json'),
+      'content',
+      {
+        'Content-Type' => 'application/octet-stream'
+      }).and_return(open(fixture('profile.json')).read)
+
+    @api.request('xxx/zzz', :post, { :bar => 'baz' }, file)
+  end
+
   it "should call api method" do
     content = open(fixture('profile.json')).read
 
@@ -49,6 +77,32 @@ describe Echonest::Api do
 
   it "should make http request with agent name" do
     @api.user_agent.agent_name.should eql('ruby-echonest/' + Echonest::VERSION)
+  end
+
+  describe '#track' do
+    it 'should return track methods' do
+      track = @api.track
+      track.class.should eql(Echonest::ApiMethods::Track)
+      track.instance_eval { @api }.should eql(@api)
+    end
+  end
+
+  describe 'traditional API methods' do
+    it 'should have traditional API methods' do
+      filename = fixture('sample.mp3')
+      analysis = Echonest::Analysis.new(open(fixture('analysis.json')).read)
+      track = Echonest::ApiMethods::Track.new(@api)
+
+      %w/tempo duration end_of_fade_in key loudness mode start_of_fade_out time_signature bars beats sections tatums segments/.
+        each do |method|
+
+        @api.should_receive(:track).and_return(track)
+        track.should_receive(:analysis).with(filename).and_return(analysis)
+        analysis.should_receive(method.to_sym)
+
+        @api.send('get_' + method, filename)
+      end
+    end
   end
 
   def make_connection_stub(content, method)

@@ -1,4 +1,5 @@
 require 'echonest/version'
+require 'echonest/traditional_api_methods'
 require 'echonest/api'
 require 'echonest/analysis'
 require 'echonest/response'
