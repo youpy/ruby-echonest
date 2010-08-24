@@ -26,7 +26,7 @@ Only supports the API for Track http://developer.echonest.com/docs/v4/track.html
  filename = 'foo.mp3'
  echonest = Echonest('YOUR_API_KEY')
 
- analysis = echonest.analysis(filename)
+ analysis = echonest.track.analysis(filename)
  beats = analysis.beats
  segments = analysis.segments
 
