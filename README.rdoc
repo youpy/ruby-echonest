@@ -12,14 +12,11 @@ A Ruby interface for Echo Nest Developer API
 
 === Gem Installation
 
- gem update --system
- gem install gemcutter
- gem tumble
  gem install ruby-echonest
 
 == Features/Problems
 
-Only supports the API for Track http://developer.echonest.com/pages/overview
+Only supports the API for Track http://developer.echonest.com/docs/v4/track.html
 
 == Synopsis
 
@@ -28,7 +25,14 @@ Only supports the API for Track http://developer.echonest.com/pages/overview
 
  filename = 'foo.mp3'
  echonest = Echonest('YOUR_API_KEY')
- echonest.get_beats(filename)
+
+ analysis = echonest.analysis(filename)
+ beats = analysis.beats
+ segments = analysis.segments
+
+ # traditional way
+ beats = echonest.get_beats(filename)
+ segments = echonest.get_segments(filename)
 
 == Thanks
 
