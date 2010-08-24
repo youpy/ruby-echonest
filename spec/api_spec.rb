@@ -10,10 +10,6 @@ describe Echonest::Api do
     @api = Echonest::Api.new('8TPE3VC60ODJTNTFE')
   end
 
-  it "should have version" do
-    Echonest::Api::VERSION.should eql('4.2')
-  end
-
   it "should build parameters" do
     params = @api.build_params(:id => 'TRXXHTJ1294CD8F3B3')
     params.keys.size.should eql(3)
