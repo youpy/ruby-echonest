@@ -62,6 +62,7 @@ spec = Gem::Specification.new do |s|
 
   s.add_dependency('libxml-ruby')
   s.add_dependency('httpclient')
+  s.add_dependency('hashie')
   #s.required_ruby_version = '>= 1.8.2'
 
   s.files = %w(README.rdoc ChangeLog Rakefile) +
