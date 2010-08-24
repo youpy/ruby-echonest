@@ -83,21 +83,19 @@ describe Echonest::Api do
     end
   end
 
-  describe 'traditional API methods' do
-    it 'should have traditional API methods' do
-      filename = fixture('sample.mp3')
-      analysis = Echonest::Analysis.new(open(fixture('analysis.json')).read)
-      track = Echonest::ApiMethods::Track.new(@api)
+  it 'should have traditional API methods' do
+    filename = fixture('sample.mp3')
+    analysis = Echonest::Analysis.new(open(fixture('analysis.json')).read)
+    track = Echonest::ApiMethods::Track.new(@api)
 
-      %w/tempo duration end_of_fade_in key loudness mode start_of_fade_out time_signature bars beats sections tatums segments/.
-        each do |method|
+    %w/tempo duration end_of_fade_in key loudness mode start_of_fade_out time_signature bars beats sections tatums segments/.
+      each do |method|
 
-        @api.should_receive(:track).and_return(track)
-        track.should_receive(:analysis).with(filename).and_return(analysis)
-        analysis.should_receive(method.to_sym)
+      @api.should_receive(:track).and_return(track)
+      track.should_receive(:analysis).with(filename).and_return(analysis)
+      analysis.should_receive(method.to_sym)
 
-        @api.send('get_' + method, filename)
-      end
+      @api.send('get_' + method, filename)
     end
   end
 
