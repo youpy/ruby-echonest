@@ -112,7 +112,15 @@ module Echonest
         md5 = Digest::MD5.hexdigest(open(filename).read)
 
         while true
-          response = profile(:md5 => md5)
+          begin
+            response = profile(:md5 => md5)
+          rescue Api::Error => e
+            if e.message =~ /^The Identifier specified does not exist/
+              response = upload(:filename => filename)
+            else
+              raise
+            end
+          end
 
           case response.body.track.status
           when 'unknown'

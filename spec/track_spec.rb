@@ -79,13 +79,9 @@ describe Echonest::ApiMethods::Track do
       @track.should_receive(:profile).
         with(:md5 => 'c2ee3cfddf1eb8631a928a4f662b587c').
         once.
-        and_return(Echonest::Response.new(open(fixture('profile_unknown.json')).read))
+        and_raise(Echonest::Api::Error.new('The Identifier specified does not exist.: c2ee3cfddf1eb8631a928a4f662b587c'))
       @track.should_receive(:upload).
         with(:filename => fixture('sample.mp3')).
-        and_return(Echonest::Response.new(open(fixture('profile.json')).read))
-      @track.should_receive(:profile).
-        with(:md5 => 'c2ee3cfddf1eb8631a928a4f662b587c').
-        once.
         and_return(Echonest::Response.new(open(fixture('profile.json')).read))
 
       @track.analysis_url(fixture('sample.mp3')).
