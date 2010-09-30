@@ -16,7 +16,8 @@ describe Echonest::ApiMethods::Track do
       @api.should_receive(:request).with(
         'track/profile',
         :get ,
-        :id => 'TRXXHTJ1294CD8F3B3', :bucket => 'audio_summary')
+        :id => 'TRXXHTJ1294CD8F3B3',
+        :bucket => 'audio_summary')
 
       @track.profile(:id => 'TRXXHTJ1294CD8F3B3')
     end
@@ -25,7 +26,8 @@ describe Echonest::ApiMethods::Track do
       @api.should_receive(:request).with(
         'track/profile',
         :get ,
-        :md5 => '0cf9c7faab913c62451940e6a4eb8a09', :bucket => 'audio_summary')
+        :md5 => '0cf9c7faab913c62451940e6a4eb8a09',
+        :bucket => 'audio_summary')
 
       @track.profile(:md5 => '0cf9c7faab913c62451940e6a4eb8a09')
     end
@@ -36,7 +38,8 @@ describe Echonest::ApiMethods::Track do
       @api.should_receive(:request).with(
         'track/analyze',
         :post ,
-        :id => 'TRXXHTJ1294CD8F3B3', :bucket => 'audio_summary')
+        :id => 'TRXXHTJ1294CD8F3B3',
+        :bucket => 'audio_summary')
 
       @track.analyze(:id => 'TRXXHTJ1294CD8F3B3')
     end
@@ -45,7 +48,8 @@ describe Echonest::ApiMethods::Track do
       @api.should_receive(:request).with(
         'track/analyze',
         :post,
-        :md5 => '0cf9c7faab913c62451940e6a4eb8a09', :bucket => 'audio_summary')
+        :md5 => '0cf9c7faab913c62451940e6a4eb8a09',
+        :bucket => 'audio_summary')
 
       @track.analyze(:md5 => '0cf9c7faab913c62451940e6a4eb8a09')
     end
@@ -56,7 +60,8 @@ describe Echonest::ApiMethods::Track do
       @api.should_receive(:request).with(
         'track/upload',
         :post ,
-        :url => 'http://example.com/foo.mp3', :bucket => 'audio_summary')
+        :url => 'http://example.com/foo.mp3',
+        :bucket => 'audio_summary')
 
       @track.upload(:url => 'http://example.com/foo.mp3')
     end
