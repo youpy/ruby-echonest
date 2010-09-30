@@ -32,7 +32,7 @@ describe Echonest::ApiMethods::Track do
   end
 
   describe '#analyze' do
-    it 'should request to track/profile with id' do
+    it 'should request to track/analyze with id' do
       @api.should_receive(:request).with(
         'track/analyze',
         :post ,
@@ -41,7 +41,7 @@ describe Echonest::ApiMethods::Track do
       @track.analyze(:id => 'TRXXHTJ1294CD8F3B3')
     end
 
-    it 'should request to track/profile with md5' do
+    it 'should request to track/analyze with md5' do
       @api.should_receive(:request).with(
         'track/analyze',
         :post,
