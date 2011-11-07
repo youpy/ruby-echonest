@@ -8,7 +8,11 @@ module Echonest
     end
 
     def self.new_from_url(url)
-      new(open(url).read)
+      if OpenURI::Options.has_key? :ssl_verify_mode
+        new(open(url, 'r', { :ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE }).read)
+      else
+        new(open(url).read)
+      end
     end
 
     def tempo
