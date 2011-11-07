@@ -2,8 +2,6 @@ $:.unshift File.dirname(__FILE__)
 
 require 'spec_helper'
 
-include SpecHelper
-
 describe Echonest::Response do
   before do
     @success = Echonest::Response.new(open(fixture('profile.json')).read)

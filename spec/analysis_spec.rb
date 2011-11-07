@@ -2,8 +2,6 @@ $:.unshift File.dirname(__FILE__)
 
 require 'spec_helper'
 
-include SpecHelper
-
 describe Echonest::Analysis do
   before do
     @analysis = Echonest::Analysis.new(open(fixture('analysis.json')).read)

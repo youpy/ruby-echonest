@@ -1,9 +1,6 @@
 $:.unshift File.dirname(__FILE__)
 
 require 'spec_helper'
-require "echonest"
-
-include SpecHelper
 
 describe Echonest do
   it "should return an instance of Echonest::Api" do

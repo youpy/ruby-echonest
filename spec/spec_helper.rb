@@ -2,10 +2,8 @@ $:.unshift File.dirname(__FILE__) + '/../lib/'
 
 require 'echonest'
 
-module SpecHelper
+RSpec.configure do |config|
   def fixture(filename)
     File.dirname(__FILE__) + '/fixtures/' + filename
   end
 end
-
-
