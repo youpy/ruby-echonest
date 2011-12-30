@@ -2,6 +2,7 @@
 require 'digest/md5'
 require 'httpclient'
 require 'json'
+require 'fileutils'
 
 module Echonest
   class Api
@@ -104,13 +105,23 @@ module Echonest
       end
 
       def analysis(filename)
-        analysis_url = analysis_url(filename)
-        Analysis.new_from_url(analysis_url)
+        md5 = Digest::MD5.hexdigest(open(filename).read)
+        cache_path = DIRECTORY + 'analysis' + md5
+
+        if File.exists?(cache_path)
+          analysis = Analysis.new(open(cache_path).read)
+        else
+          analysis = Analysis.new_from_url(analysis_url(filename, md5))
+          cache_path.dirname.mkpath
+          open(cache_path, 'w') do |file|
+            file.write analysis.json
+          end
+        end
+
+        analysis
       end
 
-      def analysis_url(filename)
-        md5 = Digest::MD5.hexdigest(open(filename).read)
-
+      def analysis_url(filename, md5)
         while true
           begin
             response = profile(:md5 => md5)

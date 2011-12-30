@@ -1,11 +1,17 @@
 $:.unshift File.dirname(__FILE__)
 
 require 'spec_helper'
+require 'fileutils'
 
 describe Echonest::ApiMethods::Track do
   before do
     @api = Echonest::Api.new('8TPE3VC60ODJTNTFE')
     @track = Echonest::ApiMethods::Track.new(@api)
+    @cache_path = File.expand_path('~/.echonest/analysis/c2ee3cfddf1eb8631a928a4f662b587c')
+
+    if File.exists?(@cache_path)
+      FileUtils.rm @cache_path
+    end
   end
 
   describe '#profile' do
@@ -86,17 +92,38 @@ describe Echonest::ApiMethods::Track do
         with(:filename => fixture('sample.mp3')).
         and_return(Echonest::Response.new(open(fixture('profile.json')).read))
 
-      @track.analysis_url(fixture('sample.mp3')).
+      @track.analysis_url(fixture('sample.mp3'), 'c2ee3cfddf1eb8631a928a4f662b587c').
         should eql('https://echonest-analysis.s3.amazonaws.com:443/TR/TRXXHTJ1294CD8F3B3/3/full.json?Signature=GQMyRUdcO5MUPSHZej72oQHOg3g%3D&Expires=1278605254&AWSAccessKeyId=AKIAJTEJGOTDLQY2E77A')
     end
   end
 
   describe '#analysis' do
-    it 'should return analysis' do
-      analysis_url = 'https://echonest-analysis.s3.amazonaws.com:443/TR/TRXXHTJ1294CD8F3B3/3/full.json?Signature=GQMyRUdcO5MUPSHZej72oQHOg3g%3D&Expires=1278605254&AWSAccessKeyId=AKIAJTEJGOTDLQY2E77A'
-      @track.should_receive(:analysis_url).with(fixture('sample.mp3')).and_return(analysis_url)
-      Echonest::Analysis.should_receive(:new_from_url).with(analysis_url)
+    before do
+      @analysis = Echonest::Analysis.new(open(fixture('analysis.json')).read)
+      @analysis_url = 'https://echonest-analysis.s3.amazonaws.com:443/TR/TRXXHTJ1294CD8F3B3/3/full.json?Signature=GQMyRUdcO5MUPSHZej72oQHOg3g%3D&Expires=1278605254&AWSAccessKeyId=AKIAJTEJGOTDLQY2E77A'
+    end
 
+    it 'should return analysis' do
+      @track.should_receive(:analysis_url).with(fixture('sample.mp3'), 'c2ee3cfddf1eb8631a928a4f662b587c').and_return(@analysis_url)
+      Echonest::Analysis.should_receive(:new_from_url).with(@analysis_url).and_return(@analysis)
+
+      @track.analysis(fixture('sample.mp3'))
+    end
+
+    it 'should cache analysis' do
+      File.exist?(@cache_path).should_not be
+
+      # 1st (not cached)
+      @track.should_receive(:analysis_url).with(fixture('sample.mp3'), 'c2ee3cfddf1eb8631a928a4f662b587c').and_return(@analysis_url)
+      Echonest::Analysis.should_receive(:new_from_url).with(@analysis_url).and_return(@analysis)
+      @track.analysis(fixture('sample.mp3'))
+
+      File.exist?(@cache_path).should be
+      open(@cache_path).read.should eql(open(fixture('analysis.json')).read)
+
+      # 2nd (cached)
+      @track.should_not_receive(:analysis_url)
+      Echonest::Analysis.should_receive(:new).with(open(@cache_path).read).and_return(@analysis)
       @track.analysis(fixture('sample.mp3'))
     end
   end

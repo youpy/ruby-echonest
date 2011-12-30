@@ -3,8 +3,11 @@ require 'open-uri'
 
 module Echonest
   class Analysis
+    attr_reader :json
+
     def initialize(json)
-      @body = JSON.parse(json)
+      @json = json
+      @body = JSON.parse(@json)
     end
 
     def self.new_from_url(url)
