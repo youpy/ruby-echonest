@@ -18,6 +18,10 @@ module Echonest
     def initialize(api_key)
       @api_key = api_key
       @user_agent = HTTPClient.new(:agent_name => USER_AGENT)
+
+      # for big files
+      @user_agent.send_timeout = 60 * 30
+      @user_agent.receive_timeout = 60 * 10
     end
 
     def track
