@@ -3,6 +3,7 @@ require 'digest/md5'
 require 'httpclient'
 require 'json'
 require 'fileutils'
+require 'cgi'
 
 module Echonest
   class Api
@@ -39,7 +40,7 @@ module Echonest
         query = build_params(params).sort_by do |param|
           param[0].to_s
         end.inject([]) do |m, param|
-          m << [URI.encode(param[0].to_s), URI.encode(param[1])].join('=')
+          m << [CGI.escape(param[0].to_s), CGI.escape(param[1])].join('=')
         end.join('&')
 
         uri = URI.join(BASE_URL, name.to_s)
