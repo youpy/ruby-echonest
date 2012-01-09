@@ -1,10 +1,27 @@
 $:.unshift File.dirname(__FILE__)
 
 require 'spec_helper'
+require 'tempfile'
 
 describe Echonest::Api do
   before do
     @api = Echonest::Api.new('8TPE3VC60ODJTNTFE')
+  end
+
+  it "should have a filename for api key" do
+    Echonest::Api.api_key_file.to_s.should eql(Pathname('~/.echonest/api_key').expand_path.to_s)
+  end
+
+  it "should read api key from file" do
+    file = Tempfile.new('api_key')
+    file.write('XXXXX')
+    file.flush
+
+    Echonest::Api.should_receive(:api_key_file).and_return(Pathname(file.path))
+
+    api = Echonest::Api.new
+
+    api.instance_variable_get('@api_key').should eql('XXXXX')
   end
 
   it "should build parameters" do

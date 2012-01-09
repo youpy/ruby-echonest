@@ -16,8 +16,8 @@ module Echonest
 
     attr_reader :user_agent
 
-    def initialize(api_key)
-      @api_key = api_key
+    def initialize(api_key = nil)
+      @api_key = api_key || read_api_key_from_file
       @user_agent = HTTPClient.new(:agent_name => USER_AGENT)
 
       # for big files
@@ -68,6 +68,16 @@ module Echonest
       response
     rescue HTTPClient::BadResponseError => e
       raise Error.new('%s: %s' % [name, e.message])
+    end
+
+    def self.api_key_file
+      DIRECTORY + 'api_key'
+    end
+
+    private
+
+    def read_api_key_from_file
+      self.class.api_key_file.read.chomp
     end
   end
 
