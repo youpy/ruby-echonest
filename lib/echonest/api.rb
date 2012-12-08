@@ -13,6 +13,7 @@ module Echonest
     include TraditionalApiMethods
 
     class Error < StandardError; end
+    class UnsupportedFiletypeError < StandardError; end
 
     attr_reader :user_agent
 
@@ -106,7 +107,7 @@ module Echonest
 
         if options.has_key?(:filename)
           filename = options.delete(:filename)
-          filetype = filename.to_s.match(/\.(mp3|au|ogg)$/)[1]
+          filetype = parse_filetype(filename)
 
           open(filename) do |f|
             @api.request('track/upload',
@@ -162,6 +163,20 @@ module Echonest
           end
 
           sleep 5
+        end
+      end
+
+      private
+
+      def parse_filetype(filename)
+        filetype = filename.to_s.match(/\.(wav|mp3|au|ogg|m4a|mp4|aif|aiff)$/)
+
+        if !filetype
+          raise Api::UnsupportedFiletypeError
+        elsif ['aif', 'aiff'].include? filetype[1]
+          'wav'
+        else
+          filetype[1]
         end
       end
     end
