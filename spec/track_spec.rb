@@ -69,16 +69,43 @@ describe Echonest::ApiMethods::Track do
       @track.upload(:url => 'http://example.com/foo.mp3')
     end
 
-    it 'should upload by local filename' do
-      filename = fixture('sample.mp3')
+    %w{ wav mp3 au ogg m4a mp4 }.each do |filetype|
+      it "should upload '#{filetype}' by local filename" do
+        filename = fixture("sample.#{filetype}")
 
-      @api.should_receive(:request).with(
-        'track/upload',
-        :post,
-        { :bucket => 'audio_summary', :filetype => 'mp3' },
-        instance_of(File))
+        @api.should_receive(:request).with(
+          'track/upload',
+          :post,
+          { :bucket => 'audio_summary', :filetype => filetype },
+          instance_of(File))
 
-      @track.upload(:filename => filename)
+        @track.upload(:filename => filename)
+      end
+    end
+
+    %w{ aif aiff }.each do |filetype|
+      it "should upload '#{filetype}' as filetype wav" do
+        # we are tricking the echonest api here
+        # they do aiff, but only if we pretend it's wav
+
+        filename = fixture("sample.#{filetype}")
+
+        @api.should_receive(:request).with(
+          'track/upload',
+          :post,
+          { :bucket => 'audio_summary', :filetype => 'wav' },
+          instance_of(File))
+
+        @track.upload(:filename => filename)
+      end
+    end
+
+    it "should throw exception if unsupported FileType" do
+      filename = fixture("profile.json")
+
+      expect do
+        @track.upload(:filename => filename)
+      end.to raise_error(Echonest::Api::UnsupportedFiletypeError)
     end
   end
 
