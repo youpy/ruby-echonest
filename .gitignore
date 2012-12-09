@@ -3,3 +3,4 @@ coverage
 *.gem
 /example*
 *~
+Gemfile.lock
