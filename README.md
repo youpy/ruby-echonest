@@ -1,4 +1,4 @@
-# echonest
+# ruby-echonest
 
 A Ruby interface for Echo Nest Developer API
 
@@ -37,7 +37,7 @@ segments = analysis.segments
 
 ## Thanks
 
-(koyachi)[http://github.com/koyachi] for original idea http://gist.github.com/87086
+[koyachi](http://github.com/koyachi) for original idea http://gist.github.com/87086
 
 ## Copyright
 
