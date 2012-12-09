@@ -1,4 +1,4 @@
-# ruby-echonest
+# ruby-echonest [![Build Status](https://secure.travis-ci.org/youpy/ruby-echonest.png?branch=master)](https://travis-ci.org/youpy/ruby-echonest)
 
 A Ruby interface for [Echo Nest Developer API](http://developer.echonest.com/docs/v4)
 
