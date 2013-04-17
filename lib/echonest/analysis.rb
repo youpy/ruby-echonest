@@ -18,6 +18,18 @@ module Echonest
       end
     end
 
+    def artist
+      meta_info['artist']
+    end
+
+    def album
+      meta_info['album']
+    end
+
+    def title
+      meta_info['title']
+    end
+
     def tempo
       track_info['tempo']
     end
@@ -93,6 +105,10 @@ module Echonest
 
     def track_info
       @body['track']
+    end
+
+    def meta_info
+      @body['meta']
     end
   end
 end
